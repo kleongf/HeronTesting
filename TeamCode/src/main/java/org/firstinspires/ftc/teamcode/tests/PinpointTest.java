@@ -19,22 +19,30 @@ public class PinpointTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        int trajectoryChosen = 0;
+        double deltaX = 0;
+        double deltaY = 0;
+        // change this to our starting pose
         Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
-        MecanumDrive drive = new PinpointDrive(hardwareMap, initialPose);
+        // change this to the pose at the bucket
+        Pose2d scoringPose = new Pose2d(60, 60, Math.toRadians(270));
+        PinpointDrive drive = new PinpointDrive(hardwareMap, initialPose);
 
+        // in theory this should drive the robot to the block and then go to the scoring place
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .lineToYSplineHeading(33, Math.toRadians(0))
+                .setTangent(0)
+                .splineTo(new Vector2d(deltaX, deltaY), Math.PI / 2)
                 .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .lineToY(48)
+                .setTangent(Math.toRadians(315))
+                .lineToY(60)
                 .setTangent(Math.toRadians(0))
-                .lineToX(32)
-                .strafeTo(new Vector2d(44.5, 30));
+                .lineToX(60);
 
 
         Action trajectoryAction = tab1.build();
         if (isStopRequested()) return;
 
+        // add other things too
         Actions.runBlocking(
                 new SequentialAction(
                         trajectoryAction
