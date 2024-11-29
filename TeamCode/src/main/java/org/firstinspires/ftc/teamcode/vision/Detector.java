@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.vision;
 
 import android.util.Size;
-
 import com.qualcomm.robotcore.util.SortOrder;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -19,8 +16,9 @@ public class Detector {
     private ColorBlobLocatorProcessor colorLocator;
     private VisionPortal portal;
     private List<ColorBlobLocatorProcessor.Blob> blobs;
-    private double cameraMaxX = 10; // example: test later
-    private double cameraMaxY = 6; // example: test later
+    private int width = 320;
+    private int height = 240;
+
 
     public Detector(HardwareMap hardwareMap) {
         colorLocator = new ColorBlobLocatorProcessor.Builder()
@@ -32,18 +30,20 @@ public class Detector {
                 .build();
         portal = new VisionPortal.Builder()
                 .addProcessor(colorLocator)
-                .setCameraResolution(new Size(320, 240))
+                .setCameraResolution(new Size(width, height))
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .build();
     }
 
+    // placeholders until i use homography
     public double convertX(double x) {
-        return (x - 160) / 160 * cameraMaxX;
+        return 0.0;
     }
 
     public double convertY(double y) {
-        return (y - 120) / 120 * cameraMaxY;
+        return 0.0;
     }
+
 
     // this just tells how much to move based on where the robot is
     public double[] getClosestBlock() {
@@ -55,7 +55,7 @@ public class Detector {
             double[] out = {convertX(largestBoxFit.center.x), convertY(largestBoxFit.center.y)};
             return out;
         } else {
-            double[] out = {0.0, 0.0};
+            double[] out = {100.0, 100.0}; // choosing an impossible
             return out;
         }
     }

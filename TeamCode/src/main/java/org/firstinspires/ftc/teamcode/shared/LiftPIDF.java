@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode.shared;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
@@ -30,5 +34,29 @@ public class LiftPIDF {
         double power = pid + ff;
 
         liftMotor.setPower(power);
+    }
+
+    public class LiftUp implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(1000);
+            return false;
+        }
+    }
+    public Action LiftUp() {
+        return new LiftUp();
+    }
+
+    public class LiftDown implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(0);
+            return false;
+        }
+    }
+    public Action LiftDown() {
+        return new LiftDown();
     }
 }

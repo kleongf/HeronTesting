@@ -1,14 +1,19 @@
 package org.firstinspires.ftc.teamcode.shared;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 public class ExtendPIDF {
     private PIDController controller;
     public static double p = 0, i = 0, d = 0;
-    public static double f = 0;
+    // ublic static double f = 0;
     public static int target = 0;
-    private final double ticksInDegree = 757 / 180.0;
+    // we dont care because there is no angle
+
     private DcMotorEx extendMotor;
 
     public ExtendPIDF(DcMotorEx motor) {
@@ -24,10 +29,33 @@ public class ExtendPIDF {
         controller.setPID(p, i, d);
         int armPos = extendMotor.getCurrentPosition();
         double pid = controller.calculate(armPos, target);
-        double ff = Math.sin(Math.toRadians(target / ticksInDegree)) * f;
-
-        double power = pid + ff;
+        // we dont care about angle here either or feed forward, its already taken care of
+        // double ff = Math.cos(Math.toRadians(target / ticksInDegree)) * f;
+        double power = pid;
 
         extendMotor.setPower(power);
+    }
+    public class Extend implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(1000);
+            return false;
+        }
+    }
+    public Action Extend() {
+        return new Extend();
+    }
+
+    public class Retract implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(0);
+            return false;
+        }
+    }
+    public Action Retract() {
+        return new Retract();
     }
 }
