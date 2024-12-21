@@ -40,12 +40,48 @@ public class LiftPIDF {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             // will still need some tuning
-            setTarget(1000);
+            setTarget(500);
             return false;
         }
     }
     public Action LiftUp() {
         return new LiftUp();
+    }
+
+    public class LiftFirst implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(1000);
+            return false;
+        }
+    }
+    public Action LiftFirst() {
+        return new LiftFirst();
+    }
+
+    public class LiftSecond implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(2000);
+            return false;
+        }
+    }
+    public Action LiftSecond() {
+        return new LiftSecond();
+    }
+
+    public class LiftFirstDown implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(1000);
+            return false;
+        }
+    }
+    public Action LiftFirstDown() {
+        return new LiftFirstDown();
     }
 
     public class LiftDown implements Action {

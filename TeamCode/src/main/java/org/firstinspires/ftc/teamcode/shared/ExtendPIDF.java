@@ -35,7 +35,8 @@ public class ExtendPIDF {
 
         extendMotor.setPower(power);
     }
-    public class Extend implements Action {
+
+    public class ExtendFirst implements Action {
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             // will still need some tuning
@@ -43,8 +44,32 @@ public class ExtendPIDF {
             return false;
         }
     }
-    public Action Extend() {
-        return new Extend();
+    public Action ExtendFirst() {
+        return new ExtendFirst();
+    }
+
+    public class ExtendSecond implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(2000);
+            return false;
+        }
+    }
+    public Action ExtendSecond() {
+        return new ExtendSecond();
+    }
+
+    public class ExtendThird implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket packet) {
+            // will still need some tuning
+            setTarget(3000);
+            return false;
+        }
+    }
+    public Action ExtendThird() {
+        return new ExtendThird();
     }
 
     public class Retract implements Action {

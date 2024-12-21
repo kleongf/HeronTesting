@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -15,6 +16,9 @@ import org.firstinspires.ftc.teamcode.shared.Intake;
 import org.firstinspires.ftc.teamcode.shared.LiftPIDF;
 import org.firstinspires.ftc.teamcode.shared.ServoMotor;
 import org.firstinspires.ftc.teamcode.vision.Detector;
+
+// this could all be wrong we probably want a normal opmode since its iterative
+// also in the loop() function i need to power the motors :skull:
 
 @Autonomous(name = "Autonomous 1", group = "Autonomous")
 public class Auto extends LinearOpMode {
@@ -109,7 +113,7 @@ public class Auto extends LinearOpMode {
                         intake.IntakeForward(),
                         blockToBucket.build(),
                         lift.LiftUp(),
-                        extend.Extend(),
+                        extend.ExtendFirst(),
                         servo.Turn(),
                         waitOneSecond.build(),
                         servo.Straighten(),
